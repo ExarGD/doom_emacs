@@ -18,10 +18,10 @@
        (company          ; the ultimate code completion backend
         +auto)           ; as-you-type code completion
        (helm             ; the *other* search engine for love and life
-        +fuzzy)          ; enable fuzzy search backend for helm
+       +fuzzy)          ; enable fuzzy search backend for helm
       ;ido               ; the other *other* search engine...
-      ;(ivy              ; a search engine for love and life
-      ; +fuzzy)          ; enable fuzzy search backend for ivy
+      ;; (ivy              ; a search engine for love and life
+      ;; +fuzzy)          ; enable fuzzy search backend for ivy
 
        :ui
       ;deft              ; notational velocity for Emacs
@@ -47,7 +47,7 @@
        window-select     ; visually switch windows
 
        :editor
-      ;(format +onsave)  ; automated prettiness
+      (format +onsave)  ; automated prettiness
        multiple-cursors  ; editing in many places at once
       ;parinfer          ; turn lisp into python, sort of
        rotate-text       ; cycle region at point between text candidates
@@ -59,13 +59,13 @@
       ;eshell            ; a consistent, cross-platform shell (WIP)
        hideshow          ; basic code-folding support
        imenu             ; an imenu sidebar and searchable code index
-      ;term              ; terminals in Emacs
+       term              ; terminals in Emacs
        vc                ; version-control and Emacs, sitting in a tree
 
        :tools
       ;ansible
       ;docker
-       editorconfig      ; let someone else argue about tabs vs spaces
+      ;editorconfig      ; let someone else argue about tabs vs spaces
       ;ein               ; tame Jupyter notebooks with emacs
       ;gist              ; interacting with github gists
       macos             ; MacOS-specific commands
@@ -110,9 +110,7 @@
        (org              ; organize your plain life in plain text
         +attach          ; custom attachment system
         +babel           ; running code in org
-        +capture         ; org-capture in and outside of Emacs
-        +export          ; Exporting org to whatever you want
-        +present)        ; Emacs for presentations
+        +capture)         ; org-capture in and outside of Emacs
       ;perl              ; write code no one else can comprehend
       ;php               ; perl's insecure younger brother
       ;plantuml          ; diagrams for confusing people more
@@ -122,7 +120,7 @@
       ;racket            ; a DSL for DSLs
       ;rest              ; Emacs as a REST client
       ;ruby              ; 1.step do {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
-      rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+      ;; rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
       ;scala             ; java, but good
        (sh +fish)        ; she sells (ba|z|fi)sh shells on the C xor
       ;solidity          ; do you need a blockchain? No.
@@ -164,7 +162,7 @@
 	    (local-set-key "\C-ctd" 'pytest-directory)
 	    ))
 
-(setq pytest-cmd-format-string "cd %s; and pipenv run %s %s %s")
+(setq pytest-cmd-format-string "cd %s; and pipenv run %s -n 3 %s %s")
 
 (setq projectile-project-compilation-cmd "")
 
@@ -175,6 +173,7 @@
 (add-hook 'org-mode-hook
 	      (lambda ()
 	        (org-bullets-mode 1)
+            (setq org-ellipsis " ▼")
 	        (local-set-key "\C-co" 'org-pomodoro)
 	        (local-set-key (kbd "<M-up>") 'org-up-element)
 	        (local-set-key (kbd "<M-down>") 'org-down-element)
@@ -183,40 +182,7 @@
 	        ;; (local-set-key (kbd "<M-s-left>") 'widen)
 	        (visual-line-mode 1)))
 
-(load-theme 'darktooth t)
-
 (doom-modeline-init)
 
-(setq doom-font (font-spec :family "Fira Code" :size 13))
 
-(when (window-system)
-  (set-frame-font "Fira Code"))
-(let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
-               (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
-               (36 . ".\\(?:>\\)")
-               (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
-               (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
-               (42 . ".\\(?:\\(?:\\*\\*/\\)\\|\\(?:\\*[*/]\\)\\|[*/>]\\)")
-               (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
-               (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
-               (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
-               (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
-               (48 . ".\\(?:x[a-zA-Z]\\)")
-               (58 . ".\\(?:::\\|[:=]\\)")
-               (59 . ".\\(?:;;\\|;\\)")
-               (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
-               (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
-               (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
-               (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
-               (91 . ".\\(?:]\\)")
-               (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
-               (94 . ".\\(?:=\\)")
-               (119 . ".\\(?:ww\\)")
-               (123 . ".\\(?:-\\)")
-               (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
-               (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)")
-               )
-             ))
-  (dolist (char-regexp alist)
-    (set-char-table-range composition-function-table (car char-regexp)
-                          `([,(cdr char-regexp) 0 font-shape-gstring]))))
+(setq org-directory "~/Dropbox/org")
