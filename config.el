@@ -4,8 +4,7 @@
 (setq doom-theme 'darktooth)
 (setq doom-font (font-spec :family "Source Code Pro" :size 14))
 
-(map! "<A-tab>" #'next-multiframe-window)
-(map! "C-`" #'evil-escape)
+(map! "<A-tab>" #'next-multiframe-window) (map! "C-`" #'evil-escape)
 (map! "C-]" #'evil-escape)
 
 (map! "<f8>" #'projectile-compile-project)
