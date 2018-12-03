@@ -2,6 +2,7 @@
 ;;; ~/.doom.d/packages.el
 
 (package! solarized-theme)
+(package! zenburn-theme)
 ;; (package! org-pomodoro)
 (package! doom-modeline)
 (package! darktooth-theme)

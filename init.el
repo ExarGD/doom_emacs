@@ -32,14 +32,14 @@
        evil-goggles      ; display visual hints when editing in evil
       ;fci               ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE tags
-      ;; modeline          ; snazzy, Atom-inspired modeline, plus API
+      modeline          ; snazzy, Atom-inspired modeline, plus API
        nav-flash         ; blink the current line after jumping
       ;neotree           ; a project drawer, like NERDTree for vim
        treemacs          ; a project drawer, like neotree but cooler
        (popup            ; tame sudden yet inevitable temporary windows
         +all             ; catch all popups that start with an asterix
         +defaults)       ; default popup rules
-      ;pretty-code       ; replace bits of code with pretty symbols
+      pretty-code       ; replace bits of code with pretty symbols
       ;tabbar            ; FIXME an (incomplete) tab bar for Emacs
       ;unicode           ; extended unicode support for various languages
        vc-gutter         ; vcs diff in the fringe
@@ -131,7 +131,7 @@
        ;; toward a specific purpose. They may have additional dependencies and
        ;; should be loaded late.
        :app
-      ;(email +gmail)    ; emacs as an email client
+      (email +gmail)    ; emacs as an email client
       ;irc               ; how neckbeards socialize
       ;(rss +org)        ; emacs as an RSS reader
       ;twitter           ; twitter client https://twitter.com/vnought
@@ -154,35 +154,3 @@
        ;; reference for your own modules.
        (default +bindings +snippets +evil-commands))
 
-(add-hook 'python-mode-hook
-	  (lambda ()
-	    (local-set-key "\C-cta" 'pytest-all)
-	    (local-set-key "\C-ctm" 'pytest-module)
-	    (local-set-key "\C-ctt" 'pytest-one)
-	    (local-set-key "\C-ctd" 'pytest-directory)
-	    ))
-
-(setq pytest-cmd-format-string "cd %s; and pipenv run %s -n 3 %s %s")
-
-(setq projectile-project-compilation-cmd "")
-
-(defun my-org-archive-done-tasks ()
-  (interactive)
-  (org-map-entries 'org-archive-subtree "/DONE" 'file))
-
-(add-hook 'org-mode-hook
-	      (lambda ()
-	        (org-bullets-mode 1)
-            (setq org-ellipsis " ▼")
-	        (local-set-key "\C-co" 'org-pomodoro)
-	        (local-set-key (kbd "<M-up>") 'org-up-element)
-	        (local-set-key (kbd "<M-down>") 'org-down-element)
-	        (local-set-key "\C-cA" 'my-org-archive-done-tasks)
-	        ;; (local-set-key (kbd "<M-s-right>") 'org-narrow-to-subtree)
-	        ;; (local-set-key (kbd "<M-s-left>") 'widen)
-	        (visual-line-mode 1)))
-
-(doom-modeline-init)
-
-
-(setq org-directory "~/Dropbox/org")
