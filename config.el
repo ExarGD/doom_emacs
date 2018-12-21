@@ -1,11 +1,20 @@
 ;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
 
-;; (load-theme 'solarized-dark t)
-(setq doom-theme 'darktooth)
-(setq doom-font (font-spec :family "Source Code Pro" :size 14))
+(if (display-graphic-p)
+    (setq doom-theme 'wombat)
+  (load-theme 'wombat t)
+  )
+(setq doom-font (font-spec :family "Fira Code" :size 14))
 
-(map! "<A-tab>" #'next-multiframe-window) (map! "C-`" #'evil-escape)
-(map! "C-]" #'evil-escape)
+(map! "<A-tab>" #'next-multiframe-window)
+
+(setq-default evil-escape-delay 0.3)
+(setq-default evil-escape-key-sequence "§§")
+(map! "§" #'evil-escape)
+(map! "ё" #'evil-escape)
+;; (map! "C-`" #'evil-escape)
+;; (map! "C-]" #'evil-escape)
+(setq ns-function-modifier 'hyper)
 
 (map! "<f8>" #'projectile-compile-project)
 
@@ -60,7 +69,6 @@
 (cfg:reverse-input-method 'russian-computer)
 
 ;; Python config
-
 (add-hook 'python-mode-hook #'pipenv-mode)
 (add-hook 'python-mode-hook
           (lambda ()
@@ -72,7 +80,7 @@
 		    (local-set-key "\C-ctt" 'pytest-one)
 		    (local-set-key "\C-ctd" 'pytest-directory)
             ))
-(setq pytest-cmd-format-string "cd %s; and pipenv run %s -n 3 %s %s")
+(setq pytest-cmd-format-string "cd %s; and pipenv run %s -v -s -n 3 %s %s")
 (defcustom pipenv-keymap-prefix (kbd "C-c v")
   "Pipenv keymap prefix."
   :group 'pipenv
@@ -95,5 +103,22 @@
 	        (visual-line-mode 1)))
 
 
-
+(setq org-archive-location "~/Dropbox/org/archive.org::datetree/* Finished tasks")
+(setq org-agenda-files "~/Dropbox/org/tasks.org")
+(setq org-default-notes-file "~/Dropbox/org/tasks.org")
+(setq +org-capture-todo-file "~/Dropbox/org/tasks.org")
+(setq +org-capture-notes-file "~/Dropbox/org/tasks.org")
 (setq org-directory "~/Dropbox/org")
+
+(setq org-capture-templates
+  '(("p" "Personal task" entry
+      (file+olp "~/Dropbox/org/tasks.org" "Tasks" "Personal" "Backlog")
+      "* TODO %?" :prepend t :time-prompt t)
+     ("w" "Task for work" entry
+      (file+olp "~/Dropbox/org/tasks.org" "Tasks" "Work" "Backlog")
+      "* TODO %?" :prepend t :jump-to-captured t)
+     ("t" "Quick task capture into Inbox" entry
+      (file+olp "~/Dropbox/org/tasks.org" "Tasks" "Inbox")
+      "* TODO %?" :prepend t :time-prompt t :kill-buffer t)
+     ("n" "Note" entry
+      (file+olp "~/Dropbox/org/tasks.org" "Notes"))))
