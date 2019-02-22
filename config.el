@@ -1,22 +1,21 @@
 ;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
 
 (if (display-graphic-p)
-    (setq doom-theme 'wombat)
+    (setq doom-theme 'one-dark)
   (load-theme 'wombat t)
   )
 (setq doom-font (font-spec :family "Fira Code" :size 14))
 
-(map! "<A-tab>" #'next-multiframe-window)
+(map! "<SPC-right>" #'evil-window-next)
 
 (setq-default evil-escape-delay 0.3)
 (setq-default evil-escape-key-sequence "§§")
 (map! "§" #'evil-escape)
 (map! "ё" #'evil-escape)
-;; (map! "C-`" #'evil-escape)
-;; (map! "C-]" #'evil-escape)
 (setq ns-function-modifier 'hyper)
 
 (map! "<f8>" #'projectile-compile-project)
+(map! "M-§" #'+term/open-popup-in-project)
 
 ;; Default window size
 (if (display-graphic-p)
@@ -68,6 +67,9 @@
 	  (activate-input-method current))))
 (cfg:reverse-input-method 'russian-computer)
 
+;; C++ Settings
+(setq clang-format-style-option "webkit")
+
 ;; Python config
 (add-hook 'python-mode-hook #'pipenv-mode)
 (add-hook 'python-mode-hook
@@ -80,11 +82,14 @@
 		    (local-set-key "\C-ctt" 'pytest-one)
 		    (local-set-key "\C-ctd" 'pytest-directory)
             ))
-(setq pytest-cmd-format-string "cd %s; and pipenv run %s -v -s -n 3 %s %s")
+(setq pytest-cmd-format-string "cd %s && pipenv run %s -v -n 3 %s %s")
 (defcustom pipenv-keymap-prefix (kbd "C-c v")
   "Pipenv keymap prefix."
   :group 'pipenv
   :type 'string)
+
+(setq display-line-numbers-type 'relative)
+(setq left-margin-width 0)
 
 (defun my-org-archive-done-tasks ()
   (interactive)
