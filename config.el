@@ -2,9 +2,10 @@
 
 (if (display-graphic-p)
     (setq doom-theme 'one-dark)
-  (load-theme 'wombat t)
+  (load-theme 'zenburn t)
   )
-(setq doom-font (font-spec :family "Fira Code" :size 14))
+(setq doom-font (font-spec :family "Hasklig" :size 12))
+(scroll-bar-mode -1)
 
 (map! "<SPC-right>" #'evil-window-next)
 
@@ -103,8 +104,8 @@
 	        (local-set-key (kbd "<M-up>") 'org-up-element)
 	        (local-set-key (kbd "<M-down>") 'org-down-element)
 	        (local-set-key "\C-cA" 'my-org-archive-done-tasks)
-	        ;; (local-set-key (kbd "<M-s-right>") 'org-narrow-to-subtree)
-	        ;; (local-set-key (kbd "<M-s-left>") 'widen)
+            (turn-on-auto-fill)
+            (set-fill-column 80)
 	        (visual-line-mode 1)))
 
 
