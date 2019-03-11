@@ -2,7 +2,7 @@
 
 (if (display-graphic-p)
     (setq doom-theme 'one-dark)
-  (load-theme 'zenburn t)
+  (load-theme 'darktooth t)
   )
 (setq doom-font (font-spec :family "Hasklig" :size 12))
 (scroll-bar-mode -1)
@@ -69,7 +69,26 @@
 (cfg:reverse-input-method 'russian-computer)
 
 ;; C++ Settings
-(setq clang-format-style-option "webkit")
+(setq clang-format-style-option "Mozilla")
+(setq-default clang-format-style-option "Mozilla")
+(global-set-key (kbd "C-c u") 'clang-format-buffer)
+;; (defun clang-format-region-mozilla (s e)
+;;   (interactive
+;;    (if (use-region-p)
+;;        (list (region-beginning) (region-end))
+;;      (list (point) (point))))
+;;   (clang-format-region s e "Mozilla"))
+
+;; (define-key! c++-mode-map (kbd "C-<f10>") #'clang-format-region-mozilla)
+
+;; (defun clang-format-region-llvm (s e)
+;;   (interactive
+;;    (if (use-region-p)
+;;        (list (region-beginning) (region-end))
+;;      (list (point) (point))))
+;;   (clang-format-region s e "LLVM"))
+
+;; (define-key! c++-mode-map (kbd "C-<f11>") #'clang-format-region-llvm)
 
 ;; Python config
 (add-hook 'python-mode-hook #'pipenv-mode)
