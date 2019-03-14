@@ -2,12 +2,12 @@
 ;; Copy me to ~/.doom.d/init.el or ~/.config/doom/init.el, then edit me!
 
 (doom! :feature
-      ;debugger          ; FIXME stepping through code, to help you add bugs
+       ;; debugger          ; FIXME stepping through code, to help you add bugs
        eval              ; run code, run (also, repls)
        (evil +everywhere); come to the dark side, we have cookies
        ;; file-templates    ; auto-snippets for empty files
-       (lookup           ; helps you navigate your code and documentation
-        +docsets)        ; ...or in Dash docsets locally
+       ;;(lookup           ; helps you navigate your code and documentation
+       ;; +docsets)        ; ...or in Dash docsets locally
        snippets          ; my elves. They type so I don't have to
        ;; spellcheck        ; tasing you for misspelling mispelling
        ;; (syntax-checker   ; tasing you for every semicolon you forget
@@ -19,37 +19,37 @@
         +auto)           ; as-you-type code completion
        (helm             ; the *other* search engine for love and life
         +fuzzy)          ; enable fuzzy search backend for helm
-      ;ido               ; the other *other* search engine...
-      ;; (ivy              ; a search engine for love and life
-      ;; +fuzzy)          ; enable fuzzy search backend for ivy
+       ;;ido               ; the other *other* search engine...
+       ;; (ivy              ; a search engine for love and life
+       ;; +fuzzy)          ; enable fuzzy search backend for ivy
 
        :ui
-      ;deft              ; notational velocity for Emacs
+       ;; deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
-       doom-dashboard    ; a nifty splash screen for Emacs
-       ;; doom-modeline     ; a snazzy Atom-inspired mode-lin
-      ;doom-quit         ; DOOM quit-message prompts when you quit Emacs
+       ;; doom-dashboard    ; a nifty splash screen for Emacs
+       ;doom-modeline     ; a snazzy Atom-inspired mode-lin
+       ;; doom-quit         ; DOOM quit-message prompts when you quit Emacs
        evil-goggles      ; display visual hints when editing in evil
-      fci               ; a `fill-column' indicator
+       ;fci               ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE tags
-       modeline          ; snazzy, Atom-inspired modeline, plus API
-       nav-flash         ; blink the current line after jumping
-      ;neotree           ; a project drawer, like NERDTree for vim
+       modeline          ;  snazzy, Atom-inspired modeline, plus API
+       ;nav-flash         ;  blink the current line after jumping
+       ;neotree           ; a project drawer, like NERDTree for vim
        treemacs          ; a project drawer, like neotree but cooler
        (popup            ; tame sudden yet inevitable temporary windows
         +all             ; catch all popups that start with an asterix
         +defaults)       ; default popup rules
-      ;pretty-code       ; replace bits of code with pretty symbols
-      ;tabbar            ; FIXME an (incomplete) tab bar for Emacs
-      unicode           ; extended unicode support for various languages
-       vc-gutter         ; vcs diff in the fringe
-       vi-tilde-fringe   ; fringe tildes to mark beyond EOB
+       ;pretty-code       ; replace bits of code with pretty symbols
+       ;tabbar            ; FIXME an (incomplete) tab bar for Emacs
+       ;unicode          ; extended unicode support for various languages
+       ;vc-gutter         ; vcs diff in the fringe
+       ;vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        window-select     ; visually switch windows
 
        :editor
-      (format +onsave)  ; automated prettiness
+       (format +onsave)  ; automated prettiness
        multiple-cursors  ; editing in many places at once
-      ;parinfer          ; turn lisp into python, sort of
+       ;parinfer          ; turn lisp into python, sort of
        rotate-text       ; cycle region at point between text candidates
        fold
 
@@ -57,7 +57,7 @@
        dired             ; making dired pretty [functional]
        ;; ediff             ; comparing files in Emacs
        electric          ; smarter, keyword-based electric-indent
-       eshell            ; a consistent, cross-platform shell (WIP)
+       ;;eshell            ; a consistent, cross-platform shell (WIP)
        ;; hideshow          ; basic code-folding support
        imenu             ; an imenu sidebar and searchable code index
        term              ; terminals in Emacs
@@ -90,7 +90,7 @@
       ;coq               ; proofs-as-programs
       ;crystal           ; ruby at the speed of c
       ;csharp            ; unity, .NET, and mono shenanigans
-       data              ; config/data formats
+      ;data              ; config/data formats
       ;erlang            ; an elegant language for a more civilized age
       ;elixir            ; erlang done right
       ;elm               ; care for a cup of TEA?
@@ -123,7 +123,7 @@
       ;racket            ; a DSL for DSLs
       ;rest              ; Emacs as a REST client
       ;ruby              ; 1.step do {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
-      ;; rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+      ;rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
       ;scala             ; java, but good
        (sh +fish)        ; she sells (ba|z|fi)sh shells on the C xor
       ;solidity          ; do you need a blockchain? No.
@@ -138,9 +138,9 @@
       ;irc               ; how neckbeards socialize
       ;(rss +org)        ; emacs as an RSS reader
        ;; twitter           ; twitter client https://twitter.com/vnought
-       (write            ; emacs as a word processor (latex + org + markdown)
-        +wordnut         ; wordnet (wn) search
-        +langtool)       ; a proofreader (grammar/style check) for Emacs
+       ;(write            ; emacs as a word processor (latex + org + markdown)
+       ;+wordnut         ; wordnet (wn) search
+       ;+langtool)       ; a proofreader (grammar/style check) for Emacs
 
        :collab
       ;floobits          ; peer programming for a price
