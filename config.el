@@ -1,63 +1,48 @@
 ;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
-
 (if (display-graphic-p)
-    (setq doom-theme 'punpun-dark)
-  (load-theme 'punpun-dark t)
+    (setq doom-theme 'tao-yin)
+     ;; Background color for tao-yin monochrome theme, remove on theme change
+     ;; (custom-set-faces
+     ;;  '(default ((t (:background "black")))))
+     ;; (setq default-frame-alist initial-frame-alist)
+  (setq doom-theme 'zenburn)
   )
 (setq doom-font (font-spec :family "Hasklig" :size 12))
 (scroll-bar-mode -1)
 
 
 
+
 ;; Personal keymaps
 (setq ns-function-modifier 'hyper)
-
-(map! "§" #'doom/escape)
 
 (map! "<f8>" #'projectile-compile-project)
 (map! "M-§" #'+term/open-popup-in-project)
 (map! "M-]" #'forward-paragraph)
 (map! "M-[" #'backward-paragraph)
+(map! "<f9>" #'+term/open-popup-in-project)
 
 (setq evil-state t)
 
 
 ;; newline-without-break-of-line
-  (defun newline-without-break-of-line ()
-    "1. move to end of the line.
+(defun newline-without-break-of-line ()
+  "1. move to end of the line.
      2. insert newline with index"
 
-    (interactive)
-    (let ((oldpos (point)))
-      (end-of-line)
-      (newline-and-indent)))
+  (interactive)
+  (let ((oldpos (point)))
+    (end-of-line)
+    (newline-and-indent)))
 
-  (global-set-key (kbd "<s-return>") 'newline-without-break-of-line)
+(global-set-key (kbd "<s-return>") 'newline-without-break-of-line)
 
-;; Default window size
-;; (if (display-graphic-p)
-;;     (progn
-;;       (setq initial-frame-alist
-;;             '(
-;;               (tool-bar-lines . 0)
-;;               (width . 140) ; chars
-;;               (height . 45) ; lines
-;;               ))
-;;       (setq default-frame-alist
-;;             '(
-;;               (tool-bar-lines . 0)
-;;               (width . 140)
-;;               (height . 45)
-;;               )))
-;;   (progn
-;;     (setq initial-frame-alist '( (tool-bar-lines . 0)))
-;;     (setq default-frame-alist '( (tool-bar-lines . 0)))))
 
 ;;Smooth scrolling
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
 (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
-(setq scroll-step 1)
+(setq scroll-step 5)
 
 ;; Russian keys
 (defun cfg:reverse-input-method (input-method)
@@ -83,6 +68,16 @@
     (when input-method
       (activate-input-method current))))
 (cfg:reverse-input-method 'russian-computer)
+
+(c-add-style "microsoft"
+             '("stroustrup"
+               (c-offsets-alist
+                (innamespace . -)
+                (inline-open . 0)
+                (inher-cont . c-lineup-multi-inher)
+                (arglist-cont-nonempty . +)
+                (template-args-cont . +))))
+(setq c-default-style "microsoft")
 
 ;; Python config
 (add-hook 'python-mode-hook #'pipenv-mode)
@@ -130,14 +125,14 @@
 (setq org-directory "~/Dropbox/org")
 
 (setq org-capture-templates
-  '(("p" "Personal task" entry
-      (file+olp "~/Dropbox/org/tasks.org" "Tasks" "Personal" "Backlog")
-      "* TODO %?" :prepend t :time-prompt t)
-     ("w" "Task for work" entry
-      (file+olp "~/Dropbox/org/tasks.org" "Tasks" "Work" "Backlog")
-      "* TODO %?" :prepend t :jump-to-captured t)
-     ("t" "Quick task capture into Inbox" entry
-      (file+olp "~/Dropbox/org/tasks.org" "Tasks" "Inbox")
-      "* TODO %?" :prepend t :time-prompt t :kill-buffer t)
-     ("n" "Note" entry
-      (file+olp "~/Dropbox/org/tasks.org" "Notes"))))
+      '(("p" "Personal task" entry
+         (file+olp "~/Dropbox/org/tasks.org" "Tasks" "Personal" "Backlog")
+         "* TODO %?" :prepend t :time-prompt t)
+        ("w" "Task for work" entry
+         (file+olp "~/Dropbox/org/tasks.org" "Tasks" "Work" "Backlog")
+         "* TODO %?" :prepend t :jump-to-captured t)
+        ("t" "Quick task capture into Inbox" entry
+         (file+olp "~/Dropbox/org/tasks.org" "Tasks" "Inbox")
+         "* TODO %?" :prepend t :time-prompt t :kill-buffer t)
+        ("n" "Note" entry
+         (file+olp "~/Dropbox/org/tasks.org" "Notes"))))
