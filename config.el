@@ -1,16 +1,22 @@
 ;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
 (if (display-graphic-p)
-    (setq doom-theme 'tao-yin)
-     ;; Background color for tao-yin monochrome theme, remove on theme change
-     ;; (custom-set-faces
-     ;;  '(default ((t (:background "black")))))
-     ;; (setq default-frame-alist initial-frame-alist)
-  (setq doom-theme 'zenburn)
+    (setq doom-theme 'kosmos)
+  ;; Background color for tao-yin monochrome theme, remove on theme change
+  ;; (custom-set-faces
+  ;;  '(default ((t (:background "black")))))
+  ;; (setq default-frame-alist initial-frame-alist)
+  (setq doom-theme 'kosmos)
   )
 (setq doom-font (font-spec :family "Hasklig" :size 12))
 (scroll-bar-mode -1)
 
-
+;; Telephone line config
+(setq telephone-line-primary-left-separator 'telephone-line-flat
+      telephone-line-secondary-left-separator 'telephone-line-flat
+      telephone-line-primary-right-separator 'telephone-line-flat
+      telephone-line-secondary-right-separator 'telephone-line-flat)
+(setq telephone-line-evil-use-short-tag t)
+(telephone-line-mode t)
 
 
 ;; Personal keymaps
@@ -21,6 +27,10 @@
 (map! "M-]" #'forward-paragraph)
 (map! "M-[" #'backward-paragraph)
 (map! "<f9>" #'+term/open-popup-in-project)
+
+;; expand-region
+(map! :v  "v"  #'er/expand-region
+      :v  "V"  #'er/contract-region)
 
 (setq evil-state t)
 
@@ -40,7 +50,7 @@
 
 ;;Smooth scrolling
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
-(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+;; (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 (setq scroll-step 5)
 
@@ -69,16 +79,6 @@
       (activate-input-method current))))
 (cfg:reverse-input-method 'russian-computer)
 
-(c-add-style "microsoft"
-             '("stroustrup"
-               (c-offsets-alist
-                (innamespace . -)
-                (inline-open . 0)
-                (inher-cont . c-lineup-multi-inher)
-                (arglist-cont-nonempty . +)
-                (template-args-cont . +))))
-(setq c-default-style "microsoft")
-
 ;; Python config
 (add-hook 'python-mode-hook #'pipenv-mode)
 (add-hook 'python-mode-hook
@@ -96,6 +96,15 @@
   "Pipenv keymap prefix."
   :group 'pipenv
   :type 'string)
+
+;; avy bindings
+(map! :leader
+      (:prefix "a"
+        :nv "c" #'avy-goto-char
+        :nv "a" #'avy-goto-char-timer
+        :nv "f" #'avy-goto-line
+        :nv "w" #'avy-goto-word-1))
+
 
 (setq display-line-numbers-type 'relative)
 (setq left-margin-width 0)
@@ -136,3 +145,13 @@
          "* TODO %?" :prepend t :time-prompt t :kill-buffer t)
         ("n" "Note" entry
          (file+olp "~/Dropbox/org/tasks.org" "Notes"))))
+
+(defun my/org-mode-hook ()
+  "Stop the org-level headers from increasing in height relative to the other text."
+  (dolist (face '(org-level-1
+                  org-level-2
+                  org-level-3
+                  org-level-4
+                  org-level-5))
+    (set-face-attribute face nil :weight 'semi-bold :height 1.0)))
+(add-hook 'org-mode-hook 'my/org-mode-hook)

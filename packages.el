@@ -7,12 +7,14 @@
 (package! one-themes)
 (package! tao-theme)
 (package! zenburn-theme)
+(package! kosmos-theme)
+(package! telephone-line)
 ;; -----------------------
 
 (package! org-plus-contrib)
 (package! org :ignore t) ; ignore org from ELPA
 (package! org-bullets)
-(package! clang-format)
+;; (package! clang-format)
 ;; (package! solaire-mode :ignore t)
 ;; Pytest
 (package! pytest)

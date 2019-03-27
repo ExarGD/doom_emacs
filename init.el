@@ -5,9 +5,9 @@
        ;; debugger          ; FIXME stepping through code, to help you add bugs
        eval              ; run code, run (also, repls)
        (evil +everywhere); come to the dark side, we have cookies
-       ;; file-templates    ; auto-snippets for empty files
-       ;;(lookup           ; helps you navigate your code and documentation
-       ;; +docsets)        ; ...or in Dash docsets locally
+       file-templates    ; auto-snippets for empty files
+       (lookup           ; helps you navigate your code and documentation
+       +docsets)        ; ...or in Dash docsets locally
        snippets          ; my elves. They type so I don't have to
        ;; spellcheck        ; tasing you for misspelling mispelling
        ;; (syntax-checker   ; tasing you for every semicolon you forget
@@ -27,13 +27,13 @@
        ;; deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
-       ;doom-modeline     ; a snazzy Atom-inspired mode-lin
-       ;; doom-quit         ; DOOM quit-message prompts when you quit Emacs
+       ;; doom-modeline     ; a snazzy Atom-inspired mode-lin
+       doom-quit         ; DOOM quit-message prompts when you quit Emacs
        evil-goggles      ; display visual hints when editing in evil
        ;fci               ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE tags
-       modeline          ;  snazzy, Atom-inspired modeline, plus API
-       ;nav-flash         ;  blink the current line after jumping
+       ;; modeline          ;  snazzy, Atom-inspired modeline, plus API
+       nav-flash         ;  blink the current line after jumping
        ;neotree           ; a project drawer, like NERDTree for vim
        treemacs          ; a project drawer, like neotree but cooler
        (popup            ; tame sudden yet inevitable temporary windows
@@ -41,7 +41,7 @@
         +defaults)       ; default popup rules
        ;pretty-code       ; replace bits of code with pretty symbols
        ;tabbar            ; FIXME an (incomplete) tab bar for Emacs
-       ;unicode          ; extended unicode support for various languages
+       unicode          ; extended unicode support for various languages
        ;vc-gutter         ; vcs diff in the fringe
        ;vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        window-select     ; visually switch windows
@@ -57,7 +57,7 @@
        dired             ; making dired pretty [functional]
        ;; ediff             ; comparing files in Emacs
        electric          ; smarter, keyword-based electric-indent
-       ;;eshell            ; a consistent, cross-platform shell (WIP)
+       eshell            ; a consistent, cross-platform shell (WIP)
        ;; hideshow          ; basic code-folding support
        imenu             ; an imenu sidebar and searchable code index
        term              ; terminals in Emacs
@@ -78,13 +78,13 @@
       ;rgb               ; creating color strings
       ;tmux              ; an API for interacting with tmux
       ;upload            ; map local to remote projects via ssh/ftp
-      ;wakatime
+      ;; wakatime
       flyspell
       flycheck
 
        :lang
       ;assembly          ; assembly for fun or debugging
-      (cc +irony +rtags); C/C++/Obj-C madness
+      (cc +rtags); C/C++/Obj-C madness
       ;clojure           ; java with a lisp
       ;common-lisp       ; if you've seen one lisp, you've seen them all
       ;coq               ; proofs-as-programs
