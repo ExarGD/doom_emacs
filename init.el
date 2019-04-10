@@ -4,10 +4,10 @@
 (doom! :feature
        ;; debugger          ; FIXME stepping through code, to help you add bugs
        eval              ; run code, run (also, repls)
-       (evil +everywhere); come to the dark side, we have cookies
+       ;; (evil +everywhere); come to the dark side, we have cookies
        file-templates    ; auto-snippets for empty files
        (lookup           ; helps you navigate your code and documentation
-       +docsets)        ; ...or in Dash docsets locally
+        +docsets)        ; ...or in Dash docsets locally
        snippets          ; my elves. They type so I don't have to
        ;; spellcheck        ; tasing you for misspelling mispelling
        ;; (syntax-checker   ; tasing you for every semicolon you forget
@@ -17,11 +17,11 @@
        :completion
        (company          ; the ultimate code completion backend
         +auto)           ; as-you-type code completion
-       (helm             ; the *other* search engine for love and life
-        +fuzzy)          ; enable fuzzy search backend for helm
-       ;;ido               ; the other *other* search engine...
-       ;;(ivy              ; a search engine for love and life
-       ;;+fuzzy)          ; enable fuzzy search backend for ivy
+       ;; (helm             ; the *other* search engine for love and life
+       ;;  +fuzzy)          ; enable fuzzy search backend for helm
+       ;; ido               ; the other *other* search engine...
+       (ivy              ; a search engine for love and life
+        +fuzzy)          ; enable fuzzy search backend for ivy
 
        :ui
        ;; deft              ; notational velocity for Emacs
@@ -29,10 +29,10 @@
        doom-dashboard    ; a nifty splash screen for Emacs
        ;; doom-modeline     ; a snazzy Atom-inspired mode-lin
        doom-quit         ; DOOM quit-message prompts when you quit Emacs
-       evil-goggles      ; display visual hints when editing in evil
+       ;; evil-goggles      ; display visual hints when editing in evil
        ;fci               ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE tags
-       ;; modeline          ;  snazzy, Atom-inspired modeline, plus API
+       modeline          ;  snazzy, Atom-inspired modeline, plus API
        nav-flash         ;  blink the current line after jumping
        ;neotree           ; a project drawer, like NERDTree for vim
        treemacs          ; a project drawer, like neotree but cooler
@@ -41,7 +41,7 @@
         +defaults)       ; default popup rules
        ;pretty-code       ; replace bits of code with pretty symbols
        ;tabbar            ; FIXME an (incomplete) tab bar for Emacs
-       unicode          ; extended unicode support for various languages
+       ;; unicode          ; extended unicode support for various languages
        ;vc-gutter         ; vcs diff in the fringe
        ;vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        window-select     ; visually switch windows
@@ -66,7 +66,7 @@
        :tools
       ;ansible
       ;docker
-      ;editorconfig      ; let someone else argue about tabs vs spaces
+      editorconfig      ; let someone else argue about tabs vs spaces
       ;ein               ; tame Jupyter notebooks with emacs
       ;gist              ; interacting with github gists
       macos             ; MacOS-specific commands

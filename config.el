@@ -1,58 +1,77 @@
 ;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
+;;Default window size
+(setq default-frame-alist
+      '((top . 200) (left . 400)
+        (width . 200) (height . 55)
+        ))
+(setq initial-frame-alist '((top . 10) (left . 30)))
+
 (if (display-graphic-p)
-    (setq doom-theme 'kosmos)
-  ;; Background color for tao-yin monochrome theme, remove on theme change
-  ;; (custom-set-faces
-  ;;  '(default ((t (:background "black")))))
-  ;; (setq default-frame-alist initial-frame-alist)
+    (setq doom-theme 'one-dark)
   (setq doom-theme 'kosmos)
   )
-(setq doom-font (font-spec :family "Hasklig" :size 12))
+(setq doom-font (font-spec :family "Hasklig" :size 14))
+(setq doom-big-font (font-spec :family "Hasklig" :size 14))
+(setq doom-variable-font (font-spec :family "Hasklig" :size 14))
+(setq doom-unicode-font (font-spec :family "Hasklig" :size 14))
 (scroll-bar-mode -1)
-
-;; Telephone line config
-(setq telephone-line-primary-left-separator 'telephone-line-flat
-      telephone-line-secondary-left-separator 'telephone-line-flat
-      telephone-line-primary-right-separator 'telephone-line-flat
-      telephone-line-secondary-right-separator 'telephone-line-flat)
-(setq telephone-line-evil-use-short-tag t)
-(telephone-line-mode t)
-
+(tool-bar-mode 0)
+(blink-cursor-mode 1)
 
 ;; Personal keymaps
 (setq ns-function-modifier 'hyper)
+(smartparens-global-mode -1)
+(map! "<escape>" #'keyboard-escape-quit)
 
-(map! "<f8>" #'projectile-compile-project)
-(map! "M-§" #'+term/open-popup-in-project)
-(map! "M-]" #'forward-paragraph)
-(map! "M-[" #'backward-paragraph)
+(map! "<f8>" #'+treemacs/toggle)
+(map! "s-r" #'+default/compile)
 (map! "<f9>" #'+term/open-popup-in-project)
 
-;; expand-region
-(map! :v  "v"  #'er/expand-region
-      :v  "V"  #'er/contract-region)
+;; navigation
+(map! "<s-up>" #'backward-paragraph)
+(map! "<s-down>" #'forward-paragraph)
+(map! "<M-right>" #'forward-word)
+(map! "<M-left>" #'backward-word)
+(map! "<s-right>" #'end-of-line)
+(map! "<s-left>" #'beginning-of-line)
 
-(setq evil-state t)
+(map! "s-§" #'ace-window)
+(map! "s-1" #'delete-other-windows)
+(map! "s-2" #'split-window-below)
+(map! "s-3" #'split-window-right)
+(map! "±" #'switch-to-buffer-other-window)
+(map! "M-±" #'find-file-other-window)
+
+
+(map!
+ "C-." #'counsel-find-file
+ "C-," #'ivy-switch-buffer
+ )
 
 
 ;; newline-without-break-of-line
 (defun newline-without-break-of-line ()
   "1. move to end of the line.
      2. insert newline with index"
-
   (interactive)
   (let ((oldpos (point)))
     (end-of-line)
     (newline-and-indent)))
-
 (global-set-key (kbd "<s-return>") 'newline-without-break-of-line)
 
 
 ;;Smooth scrolling
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
-;; (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
-(setq scroll-step 5)
+(setq scroll-step 1)
+(defun gcm-scroll-down ()
+      (interactive)
+      (scroll-up 5))
+(defun gcm-scroll-up ()
+      (interactive)
+      (scroll-down 5))
+(global-set-key (kbd "<M-up>") 'gcm-scroll-up)
+(global-set-key (kbd "<M-down>") 'gcm-scroll-down)
 
 ;; Russian keys
 (defun cfg:reverse-input-method (input-method)
@@ -91,39 +110,49 @@
             (local-set-key "\C-ctt" 'pytest-one)
             (local-set-key "\C-ctd" 'pytest-directory)
             ))
-(setq pytest-cmd-format-string "cd %s && pipenv run %s -v -n 3 %s %s")
+(setq pytest-cmd-format-string "cd %s && pipenv run %s -v %s %s")
 (defcustom pipenv-keymap-prefix (kbd "C-c v")
   "Pipenv keymap prefix."
   :group 'pipenv
   :type 'string)
 
+;; C++
+(after! cc-mode
+  (set-company-backend! 'c-mode
+    '(:separate company-irony-c-headers company-irony)))
+
+
 ;; avy bindings
 (map! :leader
-      (:prefix "a"
-        :nv "c" #'avy-goto-char
-        :nv "a" #'avy-goto-char-timer
-        :nv "f" #'avy-goto-line
-        :nv "w" #'avy-goto-word-1))
+      (:prefix ("a" . "Avy")
+        "c" #'avy-goto-char
+        "a" #'avy-goto-char-timer
+        "f" #'avy-goto-line
+        "w" #'avy-goto-word-1))
 
 
 (setq display-line-numbers-type 'relative)
 (setq left-margin-width 0)
 
+;; Org-mode settings
 (defun my-org-archive-done-tasks ()
   (interactive)
   (org-map-entries 'org-archive-subtree "/DONE" 'file))
 
 (add-hook 'org-mode-hook
           (lambda ()
-            (org-bullets-mode 1)
-            (setq org-ellipsis " ▼")
-            (local-set-key "\C-co" 'org-pomodoro)
-            (local-set-key (kbd "<M-up>") 'org-up-element)
-            (local-set-key (kbd "<M-down>") 'org-down-element)
-            (local-set-key "\C-cA" 'my-org-archive-done-tasks)
             (turn-on-auto-fill)
             (set-fill-column 80)
             (visual-line-mode 1)))
+
+(org-bullets-mode 1)
+(setq org-ellipsis " ▼")
+(map! (:map org-mode-map
+        "<M-up>" #'org-up-element
+        "<M-down>" #'org-down-element
+        "<C-tab>" #'next-multiframe-window
+        :leader "A" #'my-org-archive-done-tasks))
+
 
 
 (setq org-archive-location "~/Dropbox/org/archive.org::datetree/* Finished tasks")
@@ -146,12 +175,12 @@
         ("n" "Note" entry
          (file+olp "~/Dropbox/org/tasks.org" "Notes"))))
 
-(defun my/org-mode-hook ()
-  "Stop the org-level headers from increasing in height relative to the other text."
-  (dolist (face '(org-level-1
-                  org-level-2
-                  org-level-3
-                  org-level-4
-                  org-level-5))
-    (set-face-attribute face nil :weight 'semi-bold :height 1.0)))
-(add-hook 'org-mode-hook 'my/org-mode-hook)
+;; (defun my/org-mode-hook ()
+;;   "Stop the org-level headers from increasing in height relative to the other text."
+;;   (dolist (face '(org-level-1
+;;                   org-level-2
+;;                   org-level-3
+;;                   org-level-4
+;;                   org-level-5))
+;;     (set-face-attribute face nil :weight 'semi-bold :height 1.0)))
+;; (add-hook 'org-mode-hook 'my/org-mode-hook)
