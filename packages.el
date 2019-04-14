@@ -7,6 +7,7 @@
 (package! one-themes)
 (package! zenburn-theme)
 (package! kosmos-theme)
+(package! color-theme-sanityinc-tomorrow)
 (package! telephone-line)
 (package! sublimity)
 

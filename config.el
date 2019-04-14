@@ -20,7 +20,11 @@
 
 ;; Personal keymaps
 (setq ns-function-modifier 'hyper)
-(smartparens-global-mode -1)
+(map! (:after smartparens               ; annoying smartparens keybinding
+        :map smartparens-mode-map       ; remapped this keys to word navigation
+        "M-<right>" nil
+        "M-<left>" nil))
+
 (map! "<escape>" #'keyboard-escape-quit)
 
 (map! "<f8>" #'+treemacs/toggle)
@@ -41,6 +45,9 @@
 (map! "s-3" #'split-window-right)
 (map! "±" #'switch-to-buffer-other-window)
 (map! "M-±" #'find-file-other-window)
+
+(map! "<C-s-right>" #'+workspace/switch-right)
+(map! "<C-s-left>" #'+workspace/switch-left)
 
 
 (map!
@@ -65,11 +72,11 @@
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 (setq scroll-step 1)
 (defun gcm-scroll-down ()
-      (interactive)
-      (scroll-up 5))
+  (interactive)
+  (scroll-up 5))
 (defun gcm-scroll-up ()
-      (interactive)
-      (scroll-down 5))
+  (interactive)
+  (scroll-down 5))
 (global-set-key (kbd "<M-up>") 'gcm-scroll-up)
 (global-set-key (kbd "<M-down>") 'gcm-scroll-down)
 
@@ -116,11 +123,8 @@
   :group 'pipenv
   :type 'string)
 
-;; C++
-(after! cc-mode
-  (set-company-backend! 'c-mode
-    '(:separate company-irony-c-headers company-irony)))
-
+;; C++ settings
+(setq irony-additional-clang-options '("-std=c++11"))
 
 ;; avy bindings
 (map! :leader
